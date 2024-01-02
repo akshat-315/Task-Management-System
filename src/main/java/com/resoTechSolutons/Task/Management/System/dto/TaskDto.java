@@ -4,6 +4,7 @@ import com.resoTechSolutons.Task.Management.System.Enum.TaskStatus;
 import java.time.LocalDate;
 
 public class TaskDto {
+    private Long id;
     private String title;
     private String description;
     private TaskStatus status;
@@ -12,11 +13,20 @@ public class TaskDto {
     public TaskDto() {
     }
 
-    public TaskDto(String title, String description, LocalDate dueDate, TaskStatus status) {
+    public TaskDto(Long id, String title, String description, TaskStatus status, LocalDate dueDate) {
+        this.id = id;
         this.title = title;
         this.description = description;
-        this.dueDate = dueDate;
         this.status = status;
+        this.dueDate = dueDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -35,14 +45,6 @@ public class TaskDto {
         this.description = description;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
     public TaskStatus getStatus() {
         return status;
     }
@@ -51,6 +53,11 @@ public class TaskDto {
         this.status = status;
     }
 
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
 
-
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
 }

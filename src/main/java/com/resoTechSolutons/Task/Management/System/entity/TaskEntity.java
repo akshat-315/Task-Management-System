@@ -21,6 +21,14 @@ public class TaskEntity {
     @Column(name = "task_status", nullable = false)
     private TaskStatus status;
 
+    public long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(long taskId) {
+        this.taskId = taskId;
+    }
+
     public String getTitle() {
         return title;
     }

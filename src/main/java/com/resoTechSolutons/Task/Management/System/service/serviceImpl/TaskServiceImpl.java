@@ -35,6 +35,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public TaskDto getTaskById(Long id){
+        TaskEntity taskEntity = taskRepository.findById(id).orElse(null);
+        if(taskEntity != null){
+            TaskDto taskDto = new TaskDto();
+            BeanUtils.copyProperties(taskEntity, taskDto);
+            System.out.println("Task Found!");
+            return taskDto;
+        }
+        else{
+            System.out.println("Task Not Found!");
+            return null;
+        }
+    }
+
+    @Override
     public String updateTask(Long id, TaskDto taskDto) {
         TaskEntity existingTask = taskRepository.findById(id).orElse(null);
 
@@ -52,13 +67,17 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDto> getAllTasks() {
         List<TaskEntity> taskEntities = taskRepository.findAll();
+        if (taskEntities.size() == 0){
+            return null;
+        }
         List<TaskDto> taskDtos = taskEntities
                 .stream()
                 .map(task -> new TaskDto(
+                        task.getTaskId(),
                         task.getTitle(),
                         task.getDescription(),
-                        task.getDueDate(),
-                        task.getStatus()))
+                        task.getStatus(),
+                        task.getDueDate()))
                 .collect(Collectors.toList());
         return taskDtos;
     }

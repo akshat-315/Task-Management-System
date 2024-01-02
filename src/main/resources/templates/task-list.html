@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task List</title>
+</head>
+<body>
+<h2>Task List</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Task Status</th>
+        <th>Due Date</th>
+        <th>Update Task</th>
+        <th>Delete task</th>
+        <!-- Add other columns as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.status}"></td>
+        <td th:text="${task.dueDate}"></td>
+        <td>
+            <a th:href="@{/tasks/update/{id}(id=${task.id})}">Update</a>
+        </td>
+        <td>
+            <a href="">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<td>
+    <a href="/tasks/create">Create Task</a>
+</td>
+</body>
+</html>
