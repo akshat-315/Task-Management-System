@@ -7,12 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @Controller
 @RequestMapping("/tasks")
 public class TaskController {
+
+    private Logger logger = LoggerFactory.getLogger(TaskController.class);
 
     @Autowired
     private TaskService taskService;
@@ -36,23 +39,25 @@ public class TaskController {
         return "create-task";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable Long id, Model model){
-        TaskDto taskDto = taskService.getTaskById(id);
-        model.addAttribute("taskDto", taskDto);
-        return "update-task";
-    }
-
-    @PostMapping("/update/{id}")
-    public String updateTask(@PathVariable Long id, @ModelAttribute TaskDto taskDto, RedirectAttributes redirectAttributes){
-        taskService.updateTask(id, taskDto);
-        redirectAttributes.addFlashAttribute("message", "Task updated successfully!");
+    @PostMapping("/delete/{id}")
+    public String deleteTask(@PathVariable Long id){
+        taskService.deleteTask(id);
         return "redirect:/tasks/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteTask(@PathVariable Long id){
-        taskService.deleteTask(id);
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        TaskDto taskDto = taskService.getTaskById(id);
+        model.addAttribute("taskDto", taskDto);
+        return "edit-task";
+    }
+
+    // Step 2: Handle the form submission to update a task
+    @PostMapping("/edit/{id}")
+    public String updateTask(@PathVariable Long id, @ModelAttribute TaskDto taskDto) {
+        taskService.updateTask(id, taskDto);
+        logger.info("Received update request for task with ID: {}", id);
+        logger.info("Received task data: {}", taskDto);
         return "redirect:/tasks/list";
     }
 }

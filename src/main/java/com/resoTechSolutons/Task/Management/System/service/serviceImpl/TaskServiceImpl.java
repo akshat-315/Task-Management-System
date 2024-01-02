@@ -51,17 +51,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public String updateTask(Long id, TaskDto taskDto) {
-        TaskEntity existingTask = taskRepository.findById(id).orElse(null);
-
-        if (existingTask != null) {
+        TaskEntity existingTask = taskRepository.findById(id).get();
             existingTask.setTitle(taskDto.getTitle());
             existingTask.setDescription(taskDto.getDescription());
             existingTask.setStatus(taskDto.getStatus());
             existingTask.setDueDate(taskDto.getDueDate());
             taskRepository.save(existingTask);
             return "Task Updated Successfully!";
-        }
-        return "Could not find any task.";
     }
 
     @Override
