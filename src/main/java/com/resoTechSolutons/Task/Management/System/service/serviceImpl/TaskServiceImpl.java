@@ -36,17 +36,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto getTaskById(Long id){
-        TaskEntity taskEntity = taskRepository.findById(id).orElse(null);
-        if(taskEntity != null){
-            TaskDto taskDto = new TaskDto();
-            BeanUtils.copyProperties(taskEntity, taskDto);
-            System.out.println("Task Found!");
-            return taskDto;
-        }
-        else{
-            System.out.println("Task Not Found!");
-            return null;
-        }
+        TaskEntity taskEntity = taskRepository.findById(id).get();
+        TaskDto taskDto = new TaskDto();
+        BeanUtils.copyProperties(taskEntity, taskDto);
+        taskDto.setId(taskEntity.getTaskId());
+        System.out.println("Task DueDate:" + taskDto.getDueDate());
+        return taskDto;
+
     }
 
     @Override

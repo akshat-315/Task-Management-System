@@ -48,11 +48,11 @@ public class TaskController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         TaskDto taskDto = taskService.getTaskById(id);
+        logger.info("Received update request for task with ID: {}", taskDto.getDueDate());
         model.addAttribute("taskDto", taskDto);
         return "edit-task";
     }
 
-    // Step 2: Handle the form submission to update a task
     @PostMapping("/edit/{id}")
     public String updateTask(@PathVariable Long id, @ModelAttribute TaskDto taskDto) {
         taskService.updateTask(id, taskDto);

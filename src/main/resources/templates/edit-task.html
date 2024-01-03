@@ -63,22 +63,31 @@
 <form th:action="@{/tasks/edit/{id}(id=${taskDto.id})}" th:object="${taskDto}" method="post">
     <input type="hidden" th:field="*{id}" />
     <label>Title:</label>
-    <input type="text" th:field="*{title}" />
+    <label>
+        <input type="text" th:field="*{title}" />
+    </label>
 
     <label>Description:</label>
-    <input type="text" th:field="*{description}" />
+    <label>
+        <input type="text" th:field="*{description}" />
+    </label>
 
     <label>Status:</label>
-    <select th:field="*{status}">
-        <option value="NOT_STARTED">Not Started</option>
-        <option value="IN_PROGRESS">In Progress</option>
-        <option value="COMPLETED">Completed</option>
-    </select>
+    <label>
+        <select th:field="*{status}">
+            <option value="NOT_STARTED">Not Started</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="COMPLETED">Completed</option>
+        </select>
+    </label>
 
     <label>Due Date:</label>
-    <input type="date" th:field="*{dueDate}" placeholder="Due Date"/>
+    <label>
+        <input type="date" th:field="*{dueDate}" placeholder="Due Date"/>
+    </label>
 
     <button type="submit">Update</button>
 </form>
+
 </body>
 </html>
