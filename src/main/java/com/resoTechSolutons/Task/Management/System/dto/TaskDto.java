@@ -1,6 +1,8 @@
 package com.resoTechSolutons.Task.Management.System.dto;
 
 import com.resoTechSolutons.Task.Management.System.Enum.TaskStatus;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class TaskDto {
@@ -8,6 +10,7 @@ public class TaskDto {
     private String title;
     private String description;
     private TaskStatus status;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
 
     public TaskDto() {
